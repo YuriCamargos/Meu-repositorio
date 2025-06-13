@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Mensagem Aleatória</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f0f8ff;
+            font-family: Arial, sans-serif;
+        }
+        #container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #mensagem {
+            font-size: 1.5em;
+            color: #333333;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="mensagem">Carregando mensagem...</div>
+    </div>
+
+    <script>
+        const frases = [
+            "Acredite em você e tudo será possível.",
+            "Você é mais forte do que imagina.",
+            "Cada dia é uma nova chance para recomeçar.",
+            "Nunca desista dos seus sonhos.",
+            "A persistência é o caminho do êxito.",
+            "Você é capaz de coisas incríveis.",
+            "A jornada é tão importante quanto o destino.",
+            "Confie no processo e siga em frente.",
+            "Seja a mudança que você quer ver no mundo.",
+            "Grandes conquistas começam com pequenos passos."
+        ];
+
+        function exibirMensagemAleatoria() {
+            const indice = Math.floor(Math.random() * frases.length);
+            document.getElementById("mensagem").textContent = frases[indice];
+        }
+
+        window.onload = exibirMensagemAleatoria;
+    </script>
+</body>
+</html>
