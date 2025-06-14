@@ -1,56 +1,200 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Mensagem Aleatória</title>
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #f0f8ff;
-            font-family: Arial, sans-serif;
-        }
-        #container {
-            text-align: center;
-            padding: 20px;
-            border-radius: 10px;
-            background-color: #ffffff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        #mensagem {
-            font-size: 1.5em;
-            color: #333333;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reflexão do Oráculo</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3208/3208727.png" type="image/png" />
+  <style>
+    :root {
+      --bg-light: linear-gradient(to bottom, #ece9e6, #ffffff);
+      --bg-dark: linear-gradient(to bottom, #1a1a1a, #2d2d2d);
+      --text-light: #222;
+      --text-dark: #eee;
+      --box-light: rgba(255, 255, 255, 0.92);
+      --box-dark: rgba(30, 30, 30, 0.92);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      transition: background 0.5s ease;
+    }
+
+    .bg {
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/5b/RWS_Tarot_01_Magician.jpg');
+      background-size: cover;
+      background-position: center;
+      position: absolute;
+      inset: 0;
+      opacity: 0.15;
+      z-index: 1;
+    }
+
+    .container {
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      animation: fadeIn 1.2s ease-in-out forwards;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-img {
+      width: 150px;
+      margin: 0 auto 1rem auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .question {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-top: 1rem;
+      min-height: 120px;
+      white-space: pre-wrap;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+    }
+
+    .toggle-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: 1px solid #999;
+      border-radius: 5px;
+      padding: 5px 10px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    body.light {
+      background: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    body.light .container {
+      background: var(--box-light);
+    }
+
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    body.dark .container {
+      background: var(--box-dark);
+    }
+
+    body.dark .toggle-button {
+      border-color: #bbb;
+      color: #eee;
+    }
+  </style>
 </head>
 <body>
-    <div id="container">
-        <div id="mensagem">Carregando mensagem...</div>
-    </div>
+  <div class="bg"></div>
+  <button class="toggle-button" onclick="toggleModo()">🌗 Modo</button>
 
-    <script>
-        const frases = [
-            "Acredite em você e tudo será possível.",
-            "Você é mais forte do que imagina.",
-            "Cada dia é uma nova chance para recomeçar.",
-            "Nunca desista dos seus sonhos.",
-            "A persistência é o caminho do êxito.",
-            "Você é capaz de coisas incríveis.",
-            "A jornada é tão importante quanto o destino.",
-            "Confie no processo e siga em frente.",
-            "Seja a mudança que você quer ver no mundo.",
-            "Grandes conquistas começam com pequenos passos."
-        ];
+  <div class="container">
+    <img class="card-img" id="cartaImagem" src="" alt="Carta do Tarô">
+    <h1>🔮 Reflexão do Oráculo</h1>
+    <p class="question" id="question"></p>
+    <div class="footer">Toque sua tag NFC novamente para outra pergunta.</div>
+  </div>
 
-        function exibirMensagemAleatoria() {
-            const indice = Math.floor(Math.random() * frases.length);
-            document.getElementById("mensagem").textContent = frases[indice];
-        }
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2021/11/23/audio_572f9b0e6b.mp3?filename=meditation-ambient-110206.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio HTML5.
+  </audio>
 
-        window.onload = exibirMensagemAleatoria;
-    </script>
+  <script>
+    const perguntas = [
+      "Quais recursos materiais você já possui que podem sustentar o que deseja construir?",
+      "De que forma sua relação com o dinheiro e a estabilidade tem limitado sua capacidade de ousar?",
+      "Você é capaz de consolidar sua base sem abandonar sua liberdade criativa?",
+      "O que sua vontade mais profunda está tentando lhe dizer — mesmo quando você a ignora?",
+      "Em que momentos você se sente dividido entre o que deseja e o que é esperado?",
+      "É possível para você unir sua paixão ao mundo concreto que o cerca?",
+      "O que os momentos de pausa estão tentando ensinar a você?",
+      "Você tem forçado respostas quando, na verdade, era o tempo quem precisava agir?",
+      "Você consegue aceitar o silêncio e a pausa como parte do seu caminho?",
+      "Por que você acredita que só será feliz se seguir apenas o ideal e não o real?",
+      "O que o impede de reconhecer que a realidade também pode ser sagrada?",
+      "Neste momento, o que está sendo pedido de você: preservar, ousar ou repousar?"
+    ];
+
+    const cartas = [
+      { nome: "O Mago", url: "https://upload.wikimedia.org/wikipedia/commons/5/5b/RWS_Tarot_01_Magician.jpg" },
+      { nome: "A Sacerdotisa", url: "https://upload.wikimedia.org/wikipedia/commons/8/88/RWS_Tarot_02_High_Priestess.jpg" },
+      { nome: "O Eremita", url: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RWS_Tarot_09_Hermit.jpg" },
+      { nome: "A Força", url: "https://upload.wikimedia.org/wikipedia/commons/f/f5/RWS_Tarot_08_Strength.jpg" },
+      { nome: "A Morte", url: "https://upload.wikimedia.org/wikipedia/commons/d/d7/RWS_Tarot_13_Death.jpg" },
+      { nome: "A Estrela", url: "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_17_Star.jpg" },
+      { nome: "A Lua", url: "https://upload.wikimedia.org/wikipedia/commons/7/7f/RWS_Tarot_18_Moon.jpg" },
+      { nome: "O Julgamento", url: "https://upload.wikimedia.org/wikipedia/commons/d/dd/RWS_Tarot_20_Judgement.jpg" },
+      { nome: "O Louco", url: "https://upload.wikimedia.org/wikipedia/commons/9/90/RWS_Tarot_00_Fool.jpg" },
+      { nome: "A Roda da Fortuna", url: "https://upload.wikimedia.org/wikipedia/commons/3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg" },
+      { nome: "O Enforcado", url: "https://upload.wikimedia.org/wikipedia/commons/2/2b/RWS_Tarot_12_Hanged_Man.jpg" },
+      { nome: "O Sol", url: "https://upload.wikimedia.org/wikipedia/commons/1/17/RWS_Tarot_19_Sun.jpg" }
+    ];
+
+    const pergunta = perguntas[Math.floor(Math.random() * perguntas.length)];
+    const cartaSorteada = cartas[Math.floor(Math.random() * cartas.length)];
+
+    const questionElement = document.getElementById("question");
+    const cartaImagem = document.getElementById("cartaImagem");
+    cartaImagem.src = cartaSorteada.url;
+    cartaImagem.alt = "Carta: " + cartaSorteada.nome;
+
+    let i = 0;
+    function digitarTexto() {
+      if (i < pergunta.length) {
+        questionElement.textContent += pergunta.charAt(i);
+        i++;
+        setTimeout(digitarTexto, 40);
+      }
+    }
+
+    setTimeout(digitarTexto, 1000);
+
+    function definirModoInicial() {
+      const hora = new Date().getHours();
+      const modoNoturno = hora >= 18 || hora < 6;
+      document.body.classList.add(modoNoturno ? 'dark' : 'light');
+    }
+
+    function toggleModo() {
+      document.body.classList.toggle('dark');
+      document.body.classList.toggle('light');
+    }
+
+    definirModoInicial();
+  </script>
 </body>
 </html>
