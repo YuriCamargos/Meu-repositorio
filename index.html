@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Reflexão do Oráculo</title>
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3208/3208727.png" type="image/png" />
+  <title>Reflexão do Oráculo - Yuri</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3208/3208727.png" />
   <style>
     :root {
       --bg-light: linear-gradient(to bottom, #ece9e6, #ffffff);
@@ -56,9 +56,13 @@
   <button class="toggle-button" onclick="toggleModo()">🌗 Modo</button>
   <div class="container">
     <img class="card-img" id="cartaImagem" src="" alt="Carta do Oráculo">
-    <h1>🔮 Reflexão do Oráculo</h1>
+    <h1>🔮 Reflexão do Oráculo – Yuri (Gêmeos)</h1>
     <p class="question" id="question"></p>
-    <div class="footer">Toque sua tag NFC novamente para outra pergunta.</div>
+    <div class="footer">
+      <p id="astro"></p>
+      <p id="dataHora"></p>
+      <p>Toque sua tag NFC novamente para outra pergunta.</p>
+    </div>
   </div>
   <audio autoplay loop>
     <source src="https://cdn.pixabay.com/download/audio/2021/11/23/audio_572f9b0e6b.mp3?filename=meditation-ambient-110206.mp3" type="audio/mpeg">
@@ -92,7 +96,6 @@
       {nome:"A Roda da Fortuna", url:"https://upload.wikimedia.org/wikipedia/commons/3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg"},
       {nome:"O Enforcado", url:"https://upload.wikimedia.org/wikipedia/commons/2/2b/RWS_Tarot_12_Hanged_Man.jpg"},
       {nome:"O Sol", url:"https://upload.wikimedia.org/wikipedia/commons/1/17/RWS_Tarot_19_Sun.jpg"}
-      // adicione mais cartas aqui até somar 72
     ];
 
     const pergunta = perguntas[Math.floor(Math.random()*perguntas.length)];
@@ -119,6 +122,23 @@
       document.body.classList.toggle('light');
     }
     definirModo();
+
+    function atualizarDataHora() {
+      const agora = new Date();
+      const dataHora = agora.toLocaleString('pt-BR', {
+        dateStyle: 'medium', timeStyle: 'short'
+      });
+      document.getElementById("dataHora").textContent = `Agora: ${dataHora}`;
+    }
+
+    function mostrarAstro() {
+      document.getElementById("astro").textContent =
+        "Gêmeos • Lua em Libra • Vênus em Câncer";
+    }
+
+    atualizarDataHora();
+    mostrarAstro();
+    setInterval(atualizarDataHora, 60000);
   </script>
 </body>
 </html>
