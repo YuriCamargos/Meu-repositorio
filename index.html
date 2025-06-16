@@ -36,7 +36,6 @@
     }
     @keyframes fadeIn { to { opacity:1; } }
     h1 { font-size:1.6rem; margin-bottom:1rem; }
-    .card-img { width:180px; margin:0 auto 1rem; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.15); }
     .question { font-size:1.2rem; font-weight:500; min-height:120px; white-space:pre-wrap; }
     .footer { margin-top:2rem; font-size:0.85rem; }
     .toggle-button {
@@ -55,7 +54,6 @@
   <div class="bg"></div>
   <button class="toggle-button" onclick="toggleModo()">🌗 Modo</button>
   <div class="container">
-    <img class="card-img" id="cartaImagem" src="" alt="Carta do Oráculo">
     <h1>🔮 Reflexão do Oráculo – Yuri (Gêmeos)</h1>
     <p class="question" id="question"></p>
     <div class="footer">
@@ -83,27 +81,7 @@
       "Neste momento, o que está sendo pedido de você: preservar, ousar ou repousar?"
     ];
 
-    const cartas = [
-      {nome:"O Mago", url:"https://upload.wikimedia.org/wikipedia/commons/5/5b/RWS_Tarot_01_Magician.jpg"},
-      {nome:"A Sacerdotisa", url:"https://upload.wikimedia.org/wikipedia/commons/8/88/RWS_Tarot_02_High_Priestess.jpg"},
-      {nome:"O Eremita", url:"https://upload.wikimedia.org/wikipedia/commons/4/4d/RWS_Tarot_09_Hermit.jpg"},
-      {nome:"A Força", url:"https://upload.wikimedia.org/wikipedia/commons/f/f5/RWS_Tarot_08_Strength.jpg"},
-      {nome:"A Morte", url:"https://upload.wikimedia.org/wikipedia/commons/d/d7/RWS_Tarot_13_Death.jpg"},
-      {nome:"A Estrela", url:"https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_17_Star.jpg"},
-      {nome:"A Lua", url:"https://upload.wikimedia.org/wikipedia/commons/7/7f/RWS_Tarot_18_Moon.jpg"},
-      {nome:"O Julgamento", url:"https://upload.wikimedia.org/wikipedia/commons/d/dd/RWS_Tarot_20_Judgement.jpg"},
-      {nome:"O Louco", url:"https://upload.wikimedia.org/wikipedia/commons/9/90/RWS_Tarot_00_Fool.jpg"},
-      {nome:"A Roda da Fortuna", url:"https://upload.wikimedia.org/wikipedia/commons/3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg"},
-      {nome:"O Enforcado", url:"https://upload.wikimedia.org/wikipedia/commons/2/2b/RWS_Tarot_12_Hanged_Man.jpg"},
-      {nome:"O Sol", url:"https://upload.wikimedia.org/wikipedia/commons/1/17/RWS_Tarot_19_Sun.jpg"}
-    ];
-
     const pergunta = perguntas[Math.floor(Math.random()*perguntas.length)];
-    const carta = cartas[Math.floor(Math.random()*cartas.length)];
-
-    document.getElementById("cartaImagem").src = carta.url;
-    document.getElementById("cartaImagem").alt = "Carta: " + carta.nome;
-
     let idx = 0;
     function digitar() {
       if (idx < pergunta.length) {
@@ -125,15 +103,14 @@
 
     function atualizarDataHora() {
       const agora = new Date();
-      const dataHora = agora.toLocaleString('pt-BR', {
-        dateStyle: 'medium', timeStyle: 'short'
-      });
-      document.getElementById("dataHora").textContent = `Agora: ${dataHora}`;
+      const opcoes = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+      const dataHoraFormatada = agora.toLocaleDateString('pt-BR', opcoes);
+      document.getElementById("dataHora").textContent = `Agora: ${dataHoraFormatada}`;
     }
 
     function mostrarAstro() {
       document.getElementById("astro").textContent =
-        "Gêmeos • Lua em Libra • Vênus em Câncer";
+        "Hoje, a Lua transita por Libra, favorecendo o equilíbrio nas relações. Mercúrio em conjunção com Júpiter amplia percepções e comunicação. Aproveite para refletir com profundidade.";
     }
 
     atualizarDataHora();
