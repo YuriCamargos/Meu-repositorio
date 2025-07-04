@@ -4,144 +4,105 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Versículo do Dia</title>
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1995/1995574.png" />
   <style>
     :root {
       --bg-light: linear-gradient(to bottom, #ffe4ec, #fce4ec);
-      --bg-dark: linear-gradient(to bottom, #4b2c3a, #3a2330);
-      --text-light: #3a2d2f;
-      --text-dark: #fce4ec;
-      --box-light: rgba(255, 255, 255, 0.95);
-      --box-dark: rgba(60, 40, 50, 0.95);
+      --text-color: #3a2d2f;
+      --box-color: rgba(255, 255, 255, 0.95);
     }
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      display: flex; justify-content: center; align-items: center;
-      height: 100vh; overflow: hidden;
-      transition: background 0.5s ease;
+      background: var(--bg-light);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
     }
     .bg {
-      position: absolute; inset: 0;
-      background: url('https://images.unsplash.com/photo-1526401281623-2fda9fbe2045?auto=format&fit=crop&w=1350&q=80') center/cover;
-      opacity: 0.15; z-index:1;
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+      opacity: 0.2;
+      z-index: 1;
     }
     .container {
-      position: relative; z-index:2;
-      max-width:600px; text-align:center;
-      padding:2rem; border-radius:15px;
-      box-shadow:0 12px 24px rgba(0,0,0,0.1);
-      opacity:0; animation:fadeIn 1.2s forwards;
-      transition:background 0.5s, color 0.5s;
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      text-align: center;
+      padding: 2rem;
+      border-radius: 15px;
+      background: var(--box-color);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
     }
-    @keyframes fadeIn { to { opacity:1; } }
-    h1 { font-size:1.6rem; margin-bottom:1rem; }
-    .verse { font-size:1.2rem; font-weight:500; white-space:pre-wrap; min-height:120px; }
-    .footer { margin-top:2rem; font-size:0.85rem; }
-    .toggle-button {
-      position:absolute; top:20px; right:20px;
-      background:none; border:1px solid#999; border-radius:5px;
-      padding:5px 10px; cursor:pointer; z-index:10;
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
     }
-    body.light { background:var(--bg-light); color:var(--text-light); }
-    body.light .container { background:var(--box-light); }
-    body.dark { background:var(--bg-dark); color:var(--text-dark); }
-    body.dark .container { background:var(--box-dark); }
-    body.dark .toggle-button { border-color:#bbb; color:#eee; }
+    .verse {
+      font-size: 1.2rem;
+      font-weight: 500;
+      white-space: pre-wrap;
+      min-height: 120px;
+    }
   </style>
 </head>
 <body>
-  <div class="bg" style="background-image: url('https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1350&q=80');"></div>
-  <button class="toggle-button" onclick="toggleModo()">🌗 Modo</button>
+  <div class="bg"></div>
   <div class="container">
-    <img src="https://cdn.awsli.com.br/600x450/2340/2340260/produto/239974816/whatsapp-image-2023-03-13-at-13-44-43-q2cx9k.jpg" alt="Café com Deus Pai" style="width: 120px; border-radius: 10px; margin-bottom: 10px;">
     <h1>📖 Versículo do Dia</h1>
     <p class="verse" id="verse"></p>
-    <div class="footer">
-      <p id="dataHora"></p>
-      <p>Aproxime sua tag NFC novamente para outro versículo.</p>
-    </div>
   </div>
-  <audio autoplay loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/25/audio_9d9622d3b7.mp3?filename=inspirational-calm-ambient-111199.mp3" type="audio/mpeg">
-  </audio>
   <script>
     const versiculos = [
-  {
-    texto: "O Senhor é o meu pastor; nada me faltará. 
-Salmo 23:1",
-    mensagem: "Deus cuida de você como um pastor cuida de suas ovelhas. Confie que nada vai faltar."
-  },
-  {
-    texto: "Tudo posso naquele que me fortalece. 
-Filipenses 4:13",
-    mensagem: "Com Jesus ao seu lado, você pode enfrentar qualquer desafio da vida."
-  },
-  {
-    texto: "Entrega o teu caminho ao Senhor; confia nele, e o mais ele fará. 
-Salmo 37:5",
-    mensagem: "Ao entregar sua vida nas mãos de Deus, você encontra paz verdadeira."
-  },
-  {
-    texto: "Confia no Senhor de todo o teu coração. 
-Provérbios 3:5",
-    mensagem: "Mesmo sem entender tudo, confiar em Deus é sempre o melhor caminho."
-  },
-  {
-    texto: "Porque sou eu que conheço os planos que tenho para vocês. 
-Jeremias 29:11",
-    mensagem: "Deus tem um plano cheio de esperança e propósito para sua vida."
-  },
-  {
-    texto: "Alegrem-se na esperança, sejam pacientes na tribulação. 
-Romanos 12:12",
-    mensagem: "Mesmo nos dias difíceis, mantenha sua fé e espere com alegria."
-  },
-  {
-    texto: "Deem graças em todas as circunstâncias. 
-1 Tessalonicenses 5:18",
-    mensagem: "A gratidão transforma nosso olhar mesmo nos dias mais simples."
-  },
-  {
-    texto: "O Senhor é a minha luz e a minha salvação. 
-Salmo 27:1",
-    mensagem: "Não importa a escuridão ao redor, Deus é sua luz e proteção."
-  },
-  {
-    texto: "O choro pode durar uma noite, mas a alegria vem pela manhã. 
-Salmo 30:5",
-    mensagem: "As dificuldades são passageiras. Confie que a alegria vai voltar."
-  },
-  {
-    texto: "Busquem em primeiro lugar o Reino de Deus. 
-Mateus 6:33",
-    mensagem: "Quando colocamos Deus em primeiro lugar, tudo mais se encaixa."
-  }
-  // Adicione aqui mais versículos com texto e mensagem até completar os 50
-];
+      {
+        texto: "O Senhor é o meu pastor; nada me faltará. \nSalmo 23:1",
+        mensagem: "Deus cuida de você como um pastor cuida de suas ovelhas. Confie que nada vai faltar."
+      },
+      {
+        texto: "Tudo posso naquele que me fortalece. \nFilipenses 4:13",
+        mensagem: "Com Jesus ao seu lado, você pode enfrentar qualquer desafio da vida."
+      },
+      {
+        texto: "Entrega o teu caminho ao Senhor; confia nele, e o mais ele fará. \nSalmo 37:5",
+        mensagem: "Ao entregar sua vida nas mãos de Deus, você encontra paz verdadeira."
+      },
+      {
+        texto: "Confia no Senhor de todo o teu coração. \nProvérbios 3:5",
+        mensagem: "Mesmo sem entender tudo, confiar em Deus é sempre o melhor caminho."
+      },
+      {
+        texto: "Porque sou eu que conheço os planos que tenho para vocês. \nJeremias 29:11",
+        mensagem: "Deus tem um plano cheio de esperança e propósito para sua vida."
+      },
+      {
+        texto: "Alegrem-se na esperança, sejam pacientes na tribulação. \nRomanos 12:12",
+        mensagem: "Mesmo nos dias difíceis, mantenha sua fé e espere com alegria."
+      },
+      {
+        texto: "Deem graças em todas as circunstâncias. \n1 Tessalonicenses 5:18",
+        mensagem: "A gratidão transforma nosso olhar mesmo nos dias mais simples."
+      },
+      {
+        texto: "O Senhor é a minha luz e a minha salvação. \nSalmo 27:1",
+        mensagem: "Não importa a escuridão ao redor, Deus é sua luz e proteção."
+      },
+      {
+        texto: "O choro pode durar uma noite, mas a alegria vem pela manhã. \nSalmo 30:5",
+        mensagem: "As dificuldades são passageiras. Confie que a alegria vai voltar."
+      },
+      {
+        texto: "Busquem em primeiro lugar o Reino de Deus. \nMateus 6:33",
+        mensagem: "Quando colocamos Deus em primeiro lugar, tudo mais se encaixa."
+      }
+      // Adicione mais versículos até 50 conforme o mesmo formato
+    ];
 
     const sorteado = versiculos[Math.floor(Math.random() * versiculos.length)];
-document.getElementById("verse").innerHTML = `<strong>${sorteado.texto}</strong><br/><br/><em>${sorteado.mensagem}</em>`;
-
-    function atualizarDataHora() {
-      const agora = new Date();
-      const opcoes = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-      document.getElementById("dataHora").textContent = agora.toLocaleDateString('pt-BR', opcoes);
-    }
-
-    function toggleModo() {
-      document.body.classList.toggle('dark');
-      document.body.classList.toggle('light');
-    }
-
-    function definirModo() {
-      const h = new Date().getHours();
-      document.body.classList.add(h >= 18 || h < 6 ? 'dark' : 'light');
-    }
-
-    definirModo();
-    atualizarDataHora();
-    setInterval(atualizarDataHora, 60000);
+    document.getElementById("verse").innerHTML = `<strong>${sorteado.texto}</strong><br/><br/><em>${sorteado.mensagem}</em>`;
   </script>
 </body>
 </html>
