@@ -51,10 +51,11 @@
   </style>
 </head>
 <body>
-  <div class="bg"></div>
+  <div class="bg" style="background: url('https://images.unsplash.com/photo-1504615755583-2916b52192d7?auto=format&fit=crop&w=1470&q=80') center/cover no-repeat; opacity: 0.2; z-index: 1; position: absolute; inset: 0;"></div>
   <div class="container">
     <h1>📖 Versículo do Dia</h1>
     <p class="verse" id="verse"></p>
+    <p id="dataHora" style="margin-top: 1rem; font-size: 0.9rem;"></p>
   </div>
   <script>
     const versiculos = [
@@ -103,6 +104,15 @@
 
     const sorteado = versiculos[Math.floor(Math.random() * versiculos.length)];
     document.getElementById("verse").innerHTML = `<strong>${sorteado.texto}</strong><br/><br/><em>${sorteado.mensagem}</em>`;
+  
+    function atualizarDataHora() {
+      const agora = new Date();
+      const opcoes = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+      const dataHoraFormatada = agora.toLocaleDateString('pt-BR', opcoes);
+      document.getElementById("dataHora").textContent = dataHoraFormatada;
+    }
+    atualizarDataHora();
+    setInterval(atualizarDataHora, 60000);
   </script>
 </body>
 </html>
