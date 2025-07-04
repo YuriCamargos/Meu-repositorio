@@ -7,12 +7,12 @@
   <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1995/1995574.png" />
   <style>
     :root {
-      --bg-light: linear-gradient(to bottom, #f5f7fa, #c3cfe2);
-      --bg-dark: linear-gradient(to bottom, #1a1a1a, #2e2e2e);
-      --text-light: #222;
-      --text-dark: #eee;
-      --box-light: rgba(255, 255, 255, 0.92);
-      --box-dark: rgba(30, 30, 30, 0.92);
+      --bg-light: linear-gradient(to bottom, #ffe4ec, #fce4ec);
+      --bg-dark: linear-gradient(to bottom, #4b2c3a, #3a2330);
+      --text-light: #3a2d2f;
+      --text-dark: #fce4ec;
+      --box-light: rgba(255, 255, 255, 0.95);
+      --box-dark: rgba(60, 40, 50, 0.95);
     }
     body {
       margin: 0;
@@ -23,7 +23,7 @@
     }
     .bg {
       position: absolute; inset: 0;
-      background: url('https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=1350&q=80') center/cover;
+      background: url('https://images.unsplash.com/photo-1526401281623-2fda9fbe2045?auto=format&fit=crop&w=1350&q=80') center/cover;
       opacity: 0.15; z-index:1;
     }
     .container {
@@ -66,18 +66,51 @@
   </audio>
   <script>
     const versiculos = [
-      "O Senhor é o meu pastor, nada me faltará. \nSalmo 23:1",
-      "Tudo posso naquele que me fortalece. \nFilipenses 4:13",
-      "Confia no Senhor de todo o teu coração. \nProvérbios 3:5",
-      "O Senhor é a minha luz e a minha salvação; a quem temerei? \nSalmo 27:1",
-      "Entrega o teu caminho ao Senhor; confia nele, e ele o fará. \nSalmo 37:5",
-      "Bendize, ó minha alma, ao Senhor, e tudo o que há em mim bendiga o seu santo nome. \nSalmo 103:1",
-      "Porque sou eu que conheço os planos que tenho para você, diz o Senhor. \nJeremias 29:11",
-      "Deem graças em todas as circunstâncias. \n1 Tessalonicenses 5:18"
-    ];
+  {
+    texto: "O Senhor é o meu pastor; nada me faltará. \nSalmo 23:1",
+    mensagem: "Deus cuida de você como um pastor cuida de suas ovelhas. Confie que nada vai faltar."
+  },
+  {
+    texto: "Tudo posso naquele que me fortalece. \nFilipenses 4:13",
+    mensagem: "Com Jesus ao seu lado, você pode enfrentar qualquer desafio da vida."
+  },
+  {
+    texto: "Entrega o teu caminho ao Senhor; confia nele, e o mais ele fará. \nSalmo 37:5",
+    mensagem: "Ao entregar sua vida nas mãos de Deus, você encontra paz verdadeira."
+  },
+  {
+    texto: "Confia no Senhor de todo o teu coração. \nProvérbios 3:5",
+    mensagem: "Mesmo sem entender tudo, confiar em Deus é sempre o melhor caminho."
+  },
+  {
+    texto: "Porque sou eu que conheço os planos que tenho para vocês. \nJeremias 29:11",
+    mensagem: "Deus tem um plano cheio de esperança e propósito para sua vida."
+  },
+  {
+    texto: "Alegrem-se na esperança, sejam pacientes na tribulação. \nRomanos 12:12",
+    mensagem: "Mesmo nos dias difíceis, mantenha sua fé e espere com alegria."
+  },
+  {
+    texto: "Deem graças em todas as circunstâncias. \n1 Tessalonicenses 5:18",
+    mensagem: "A gratidão transforma nosso olhar mesmo nos dias mais simples."
+  },
+  {
+    texto: "O Senhor é a minha luz e a minha salvação. \nSalmo 27:1",
+    mensagem: "Não importa a escuridão ao redor, Deus é sua luz e proteção."
+  },
+  {
+    texto: "O choro pode durar uma noite, mas a alegria vem pela manhã. \nSalmo 30:5",
+    mensagem: "As dificuldades são passageiras. Confie que a alegria vai voltar."
+  },
+  {
+    texto: "Busquem em primeiro lugar o Reino de Deus. \nMateus 6:33",
+    mensagem: "Quando colocamos Deus em primeiro lugar, tudo mais se encaixa."
+  }
+  // Adicione aqui mais versículos com texto e mensagem até completar os 50
+];
 
     const sorteado = versiculos[Math.floor(Math.random() * versiculos.length)];
-    document.getElementById("verse").textContent = sorteado;
+document.getElementById("verse").innerHTML = `<strong>${sorteado.texto}</strong><br/><br/><em>${sorteado.mensagem}</em>`;
 
     function atualizarDataHora() {
       const agora = new Date();
