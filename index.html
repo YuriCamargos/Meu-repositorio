@@ -116,7 +116,7 @@
     setInterval(atualizarDataHora, 60000);
   
     function falarVersiculo() {
-      const texto = `${sorteado.texto}. ${sorteado.mensagem}`;
+      const texto = `Bom dia, Damares! O versículo do dia é: ${sorteado.texto}. ${sorteado.mensagem}`;
       const fala = new SpeechSynthesisUtterance(texto);
       fala.lang = 'pt-BR';
       fala.rate = 0.95;
