@@ -55,6 +55,7 @@
   <div class="container">
     <h1>📖 Versículo do Dia</h1>
     <p class="verse" id="verse"></p>
+    <button onclick="falarVersiculo()" style="margin-top: 1rem; padding: 0.5rem 1rem; border: none; background-color: #e91e63; color: white; border-radius: 5px; cursor: pointer;">🔈 Ouvir Versículo</button>
     <p id="dataHora" style="margin-top: 1rem; font-size: 0.9rem;"></p>
   </div>
   <script>
@@ -113,6 +114,15 @@
     }
     atualizarDataHora();
     setInterval(atualizarDataHora, 60000);
+  
+    function falarVersiculo() {
+      const texto = `${sorteado.texto}. ${sorteado.mensagem}`;
+      const fala = new SpeechSynthesisUtterance(texto);
+      fala.lang = 'pt-BR';
+      fala.rate = 0.95;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(fala);
+    }
   </script>
 </body>
 </html>
